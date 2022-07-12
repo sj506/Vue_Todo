@@ -12,7 +12,7 @@ class TodoModel extends Model {
     $stmt = $this->pdo->prepare($sql);
     $stmt->bindValue(':todo', $param['todo']);
     $stmt->execute();
-    return $stmt->rowCount();        
+    return intval($this->pdo->lastInsertId());        
     }
 
 
@@ -29,7 +29,7 @@ class TodoModel extends Model {
         $sql = "DELETE FROM t_todo";
                 if($param['itodo'] > 0) {
                     $itodo = $param['itodo'];
-                    $sql .= "WHERE itodo = {$itodo}";
+                    $sql .= " WHERE itodo = {$itodo}";
                 }
     $stmt = $this->pdo->prepare($sql);
     $stmt->execute();

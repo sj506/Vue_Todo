@@ -4,14 +4,18 @@ namespace application\controllers;
 
 
 class TodoController extends Controller {
+    public function main() {
+        return "index.html";
+    }
     public function index() {
         switch(getMethod()) {
             case _GET:
         return $this->model->selTodoList();
 
             case _POST:
+                $json = getJson();
                 $param = [
-                    'todo' => $_POST['todo'],
+                    'todo' => $json['todo'],
                 ];
                 $list = $this->model->insTodo($param);
                 return [_RESULT => $list];
@@ -22,7 +26,6 @@ class TodoController extends Controller {
                 $param = [
                     "itodo" => 0,
                 ];
-
                 if(isset($urlPaths[2])){   
                     $param = [
                         'itodo' => intval($urlPaths[2]),
